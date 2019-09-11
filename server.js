@@ -1,15 +1,30 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+const db= require('./db');
+
+app.use(express.json());
 
 app.get('/',(req, res, next)=> {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
-app.get('/api/users', (req, res, next)=> {
-  const users =[
-    { id: 1, name: 'moe'},
-    { id: 2, name: 'larry'}
-  ];
-  res.send(users);
+
+app.get('/api/users', async(req, res, next)=>{
+  try {
+  res.send(await db.getUsers());
+}
+catch (ex){
+  next(ex);
+}
 });
+
+app.post('/api/users', async(req, res, next)=>{
+  try {
+  res.send(await db.createUser(req.body));
+}
+catch (ex){
+  next(ex);
+}
+});
+
 app.listen(3000, ()=> console.log('listening on port 3000'));
