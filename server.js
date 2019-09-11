@@ -5,7 +5,7 @@ const db= require('./db');
 
 app.use(express.json());
 
-app.get('/',(req, res, next)=> {
+app.get('/', (req, res, next)=> {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
@@ -27,4 +27,4 @@ catch (ex){
 }
 });
 
-app.listen(3050, ()=> console.log('listening on port 3000'));
+app.listen(7555, ()=> console.log('listening on port 7555'));
